@@ -11,4 +11,12 @@
 #  updated_at :datetime         not null
 #
 class Actor < ApplicationRecord
+  def characters
+    Character.where({ :actor_id => self.id })
+  end
+
+  def movies
+    movie_ids = characters.pluck(:movie_id)
+    Movie.where({ :id => movie_ids })
+  end
 end
